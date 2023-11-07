@@ -1,0 +1,21 @@
+#!/bin/bash
+
+STTY_PRESENT=$(grep "stty -ixon" ~/.bashrc)
+BIND_PRESENT=$(grep "bind -r '\\\C-s'" ~/.bashrc)
+
+if [ -z "$STTY_PRESENT" ]; then
+  echo "writing 'stty -ixon' to .bashrc..."
+  echo "stty -ixon" >> ~/.bashrc
+fi
+if [ -z "$BIND_PRESENT" ]; then
+  echo "writing 'bind -r '\C-s'' to .bashrc..."
+  echo "bind -r '\C-s'" >> ~/.bashrc
+fi
+VIMRC_FILE=~/.vimrc
+if test -f "$VIMRC_FILE"; then
+    echo
+else
+    cp src/vimrc ~/.vimrc
+    echo "copied src/vimrc to .vimrc"
+fi
+
